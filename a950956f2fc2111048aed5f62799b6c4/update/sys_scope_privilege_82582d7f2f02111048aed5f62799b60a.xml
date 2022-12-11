@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_scope_privilege">
+    <sys_scope_privilege action="INSERT_OR_UPDATE">
+        <operation>execute</operation>
+        <source_scope display_value="Pegion Call App">a950956f2fc2111048aed5f62799b6c4</source_scope>
+        <status>allowed</status>
+        <sys_class_name>sys_scope_privilege</sys_class_name>
+        <sys_created_by>system</sys_created_by>
+        <sys_created_on>2022-09-27 01:12:54</sys_created_on>
+        <sys_id>82582d7f2f02111048aed5f62799b60a</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>GlideRecord.update</sys_name>
+        <sys_package display_value="Pegion Call App" source="x_410824_pegion">a950956f2fc2111048aed5f62799b6c4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Pegion Call App">a950956f2fc2111048aed5f62799b6c4</sys_scope>
+        <sys_update_name>sys_scope_privilege_82582d7f2f02111048aed5f62799b60a</sys_update_name>
+        <sys_updated_by>system</sys_updated_by>
+        <sys_updated_on>2022-09-27 01:12:54</sys_updated_on>
+        <target_name>GlideRecord.update</target_name>
+        <target_scope display_value="Global">global</target_scope>
+        <target_type>scriptable</target_type>
+    </sys_scope_privilege>
+</record_update>

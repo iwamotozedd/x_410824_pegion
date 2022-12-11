@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element extends="cmdb_ci" label="Pegion Configuration" max_length="40" name="x_410824_pegion_configuration" sizeclass="2" type="collection">
+        <element choice="1" label="Type" max_length="40" name="u_type" type="string">
+            <choice>
+                <element inactive_on_update="false" label="CallFlow" sequence="1" value="callflow"/>
+                <element inactive_on_update="false" label="Guidance" sequence="2" value="guidance"/>
+            </choice>
+        </element>
+    </element>
+</database>

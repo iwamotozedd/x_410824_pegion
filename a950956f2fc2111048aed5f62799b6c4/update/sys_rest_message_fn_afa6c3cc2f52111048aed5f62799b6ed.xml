@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_rest_message_fn">
+    <sys_rest_message_fn action="INSERT_OR_UPDATE">
+        <authentication_type>inherit_from_parent</authentication_type>
+        <basic_auth_password>BiEMFVqbCuh7MaSa+EyjGA==</basic_auth_password>
+        <basic_auth_profile/>
+        <basic_auth_user/>
+        <content>{&#13;
+  "params": {&#13;
+    "callflow": {&#13;
+      "loopLimit": 1,&#13;
+      "contacts": [&#13;
+        {&#13;
+          "displayName": "岩本",&#13;
+          "phones": [ { "phoneNumber": "05038128450" } ]&#13;
+        }&#13;
+      ]&#13;
+    },&#13;
+    "guidance": {&#13;
+      "messageTemplate": "テスト用サーバーにて軽微な障害が発生しました。 対応される場合は1を、次の担当者に連絡する場合は2を、以降この電話への連絡をスキップする場合は3を押してください。",&#13;
+      "reactions": {&#13;
+        "1": {&#13;
+          "behavior": "terminate",&#13;
+          "messageTemplate": "1が押されました。対応をよろしくお願いいたします。"&#13;
+        }&#13;
+      }&#13;
+    }&#13;
+  }&#13;
+}</content>
+        <function_name>executeInvoke_2</function_name>
+        <http_method>post</http_method>
+        <lock>false</lock>
+        <oauth2_profile/>
+        <protocol_name/>
+        <qualified_name>Pigeon [ executeInvoke_2 ]</qualified_name>
+        <rest_endpoint>https://${tenant}/api/apps/pigeon/chain/invoke</rest_endpoint>
+        <rest_message display_value="Pigeon">5baed16b2f06111048aed5f62799b605</rest_message>
+        <sys_class_name>sys_rest_message_fn</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-09-28 02:43:33</sys_created_on>
+        <sys_id>afa6c3cc2f52111048aed5f62799b6ed</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>executeInvoke_2</sys_name>
+        <sys_package display_value="Pegion Call App" source="x_410824_pegion">a950956f2fc2111048aed5f62799b6c4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Pegion Call App">a950956f2fc2111048aed5f62799b6c4</sys_scope>
+        <sys_update_name>sys_rest_message_fn_afa6c3cc2f52111048aed5f62799b6ed</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-09-28 02:55:18</sys_updated_on>
+        <use_basic_auth>false</use_basic_auth>
+        <use_mid_server/>
+        <use_mutual_auth>false</use_mutual_auth>
+    </sys_rest_message_fn>
+</record_update>

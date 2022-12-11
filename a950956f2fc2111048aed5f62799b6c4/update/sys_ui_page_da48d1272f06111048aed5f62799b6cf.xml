@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ui_page">
+    <sys_ui_page action="INSERT_OR_UPDATE">
+        <category>general</category>
+        <client_script><![CDATA[function call_from_pigeon() {
+	var callflow = gel("Callflow_list").value;
+	if (!isSelected(callflow)) return;
+	var guidance = gel("Guidance_list").value;
+	if (!isSelected(guidance)) return;
+
+	var sys_id = gel("sysId").value;
+	var company = gel("company").value;
+	var freetext = document.getElementById("freetext").value;
+
+    var ga = new GlideAjax("x_410824_pegion.SFPigeonUtil");
+	ga.addParam("sysparm_name", "executeInvoke");
+	ga.addParam("sysparm_incident_sys_id", sys_id);
+	ga.addParam("sysparm_callflow", callflow);
+	ga.addParam("sysparm_guidance", guidance);
+	ga.addParam("sysparm_freetext", freetext);
+	ga.getXML(closeDialog);
+}
+
+function closeDialog(response) {
+	GlideModal.get().destroy();
+}
+
+function isSelected(eventName) {
+	if (!eventName) {
+        document.querySelector('#debugmsg').innerText = 'Select Pigeon Setting.';
+        return false;
+    }
+	return true;
+}]]></client_script>
+        <description/>
+        <direct>false</direct>
+        <endpoint>x_410824_pegion_SFPigeon_picker.do</endpoint>
+        <html><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+	<g:evaluate var="jvar_company" expression="RP.getWindowProperties().sysparm_company" />
+	<g:evaluate var="jvar_sys_id" expression="RP.getWindowProperties().sysparm_sys_id" />
+	<g:ui_form>
+		<input type="hidden" id="company" name="company" value="${jvar_company}" />
+		<input type="hidden" id="sysId" name="sys_id" value="${jvar_sys_id}" />
+		<table width="100%">
+			<tr>
+				<td>
+					コールフロー: 
+					<g:ui_reference name="Callflow_list" id="callflow_list" table="sys_user_group" query="type=b7ad14612fb2111048aed5f62799b61c" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					ガイダンス: 
+					<g:ui_reference name="Guidance_list" id="guidance_list" table="x_410824_pegion_guidance_management" query="u_company=${jvar_company}" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					自由記入(ガイダンスの{{freeText}}部分に置き換わります)：
+					<input type="text" name="freetext" id="freetext" style="margin:0px;width:555px;height:32px;" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<g:dialog_buttons_ok_cancel ok="return call_from_pigeon()" ok_type="button" cancel_button="button" />
+				</td>
+			</tr>
+		</table>
+	</g:ui_form>
+</j:jelly>]]></html>
+        <name>SFPigeon_picker</name>
+        <processing_script/>
+        <sys_class_name>sys_ui_page</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-09-26 05:30:55</sys_created_on>
+        <sys_id>da48d1272f06111048aed5f62799b6cf</sys_id>
+        <sys_mod_count>7</sys_mod_count>
+        <sys_name>SFPigeon_picker</sys_name>
+        <sys_package display_value="Pegion Call App" source="x_410824_pegion">a950956f2fc2111048aed5f62799b6c4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Pegion Call App">a950956f2fc2111048aed5f62799b6c4</sys_scope>
+        <sys_update_name>sys_ui_page_da48d1272f06111048aed5f62799b6cf</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-11-16 06:53:35</sys_updated_on>
+    </sys_ui_page>
+</record_update>

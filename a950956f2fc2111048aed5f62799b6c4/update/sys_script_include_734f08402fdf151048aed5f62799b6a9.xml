@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_410824_pegion.Get_Relationship_Record</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>Get_Relationship_Record</name>
+        <script><![CDATA[var Get_Relationship_Record = Class.create();
+Get_Relationship_Record.prototype = {
+	initialize: function() {
+	},
+	getM2MList: function(parent, m2m_table, parent_reference, child_reference, child_table) {
+		var m2m_gr = new GlideRecord(m2m_table);
+		m2m_gr.addQuery(parent_reference, parent.sys_id);
+		m2m_gr.query();
+		var kids = [];
+		var phone_num;
+		var disp_name;
+		var cont_obj = {};
+		var phone_num_obj = {};
+		var user_arr = [];
+		while (m2m_gr.next()) {
+			disp_name = m2m_gr.user.name;
+			disp_name = m2m_gr.getValue("u_phone_select");
+			//if(m2m.getValue() == "")
+		}
+      /*kids.push('' + m2m_gr.getValue(child_reference));
+      var kids_gr = new GlideRecord(child_table);
+      kids_gr.addQuery('sys_id', kids);
+      kids_gr.query();
+	  
+      return kids_gr;*/
+		return disp_name;
+	},
+
+    type: 'Get_Relationship_Record'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-11-16 06:32:22</sys_created_on>
+        <sys_id>734f08402fdf151048aed5f62799b6a9</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>Get_Relationship_Record</sys_name>
+        <sys_package display_value="Pegion Call App" source="x_410824_pegion">a950956f2fc2111048aed5f62799b6c4</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="Pegion Call App">a950956f2fc2111048aed5f62799b6c4</sys_scope>
+        <sys_update_name>sys_script_include_734f08402fdf151048aed5f62799b6a9</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-11-29 08:00:09</sys_updated_on>
+    </sys_script_include>
+</record_update>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_410824_pegion.SFPigeonUtil</api_name>
+        <caller_access/>
+        <client_callable>true</client_callable>
+        <description/>
+        <name>SFPigeonUtil</name>
+        <script><![CDATA[var SFPigeonUtil = Class.create();
+SFPigeonUtil.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
+    executeInvoke: function() {
+        try {
+			/*var grp = new GlideRecord('sys_user_group');
+grp.get('e694316a2f22111048aed5f62799b66f');
+
+
+var test = new x_410824_pegion.Get_Relationship_Record();
+var res = test.getM2MList(grp, 'x_410824_pegion_m2m_groups_users', 'group', 'user', 'sys_user');
+
+while(res.next()) {
+gs.info(res.user_name);
+}
+			*/
+            // インシデントのsys_idからレコードを取得
+            var incidentSysId = this.getParameter("sysparm_incident_sys_id");
+            var grIncident = new GlideRecord("incident");
+            grIncident.get(incidentSysId);
+			
+			var callflow_id  = this.getParameter("sysparm_callflow");
+			var user_info = _parseUserInfo(callflow_id);
+			gs.info(JSON.stringify(user_info));
+			
+			//ループカウントを取得
+			var grPigeonCallflow = new GlideRecord('sys_user_group');
+			grPigeonCallflow.get(callflow_id);
+			
+            var grPigeonGuidance = new GlideRecord('x_410824_pegion_guidance_management');
+			var guide_id = this.getParameter("sysparm_guidance");
+			var msg_obj = _parseGuidanceInfo(guide_id);
+			gs.info(JSON.stringify(msg_obj));
+			
+			grPigeonGuidance.get(guide_id);
+			var guide_msg = grPigeonGuidance.getValue("u_message_template");
+
+            var tenant = 'omeiwamoto.cloud.kompira.jp'; 
+            var token = 'GprMyp+2/kPR8vC0xrfM82YYC2NTCC08WYpN9jRR';
+
+            var rest = new sn_ws.RESTMessageV2('x_410824_pegion.Pigeon', 'executeInvoke_2');
+            rest.setStringParameterNoEscape('tenant', tenant);
+            rest.setStringParameterNoEscape('token', token);
+
+			var requestbody = {
+				"params": {
+					"callflow": {
+						"loopLimit": parseInt(grPigeonCallflow.getValue("u_loop_limit"))
+					},
+					"guidance": {
+						"messageTemplate": grPigeonGuidance.getValue("u_message_template"),
+					},
+					"parameters": {
+                        "ci": grIncident.getDisplayValue("cmdb_ci"),
+                        "detail": grIncident.getDisplayValue("short_description"),
+                        "occurred": grIncident.getDisplayValue("opened_at"),
+                        "ticketNo": grIncident.getDisplayValue("number"),
+                        "company": grIncident.getDisplayValue('company'),
+                        "freeText": this.getParameter("sysparm_freetext")
+                    }
+				}
+			};
+
+			requestbody.params.callflow.contacts = user_info;
+			requestbody.params.guidance.reactions = msg_obj;
+            rest.setRequestBody(JSON.stringify(requestbody));
+            var response = rest.execute();
+            if (response.getStatusCode() != '201') {
+                throw new Error(response.getBody());
+            }
+            gs.addInfoMessage("架電が実行されました。電話対応が全て終了後、インシデントログに結果が出力されます。");
+            var gdt = new GlideDateTime();
+            gdt.addSeconds(10);
+            gs.eventQueueScheduled('x_410824_pegion.pigeon.result', "", JSON.parse(response.getBody()).resultId, 0, gdt);
+            gs.info("イベント作成");
+        } catch (ex) {
+            gs.error(gs.getMessage('Pigeon cooperation processing failed.') + ex);
+            gs.addErrorMessage(gs.getMessage('Pigeon cooperation processing failed.'));
+        }
+	
+	//関数定義
+	function _parseUserInfo(callflow_id) {
+		var grPigeonCallflow = new GlideRecord('x_410824_pegion_call_flow_management');
+		grPigeonCallflow.get(callflow_id);
+		var flowname = grPigeonCallflow.getValue("u_flow_name");
+		var company = grPigeonCallflow.getValue("u_company");
+		
+		var disp;
+		var phone_num;
+		
+		var cont_obj = {};
+		var phone_num_obj = {};
+		var user_arr = [];
+		
+		grPigeonCallflow.initialize();
+		grPigeonCallflow.addQuery("u_flow_name", flowname);
+		grPigeonCallflow.addQuery("u_company", company);
+		grPigeonCallflow.addQuery("u_order","!=","0");
+		grPigeonCallflow.orderBy("u_order");
+		grPigeonCallflow.query();
+		while(grPigeonCallflow.next()) {
+			user1 = grPigeonCallflow.getValue("u_number");
+			if (user1 == null) {
+				phone_num = grPigeonCallflow.getValue("u_number2");
+			} else {
+				var gruser = new GlideRecord("sys_user");
+				gruser.get(user1);
+				phone_num = gruser.getValue("phone");
+			}
+			cont_obj = {};
+			phone_num_obj ={};
+			disp = grPigeonCallflow.getValue("u_display_name");
+			cont_obj.displayName = disp;
+			phone_num_obj.phoneNumber = phone_num;
+			cont_obj.phones = [];
+			cont_obj.phones[0] = phone_num_obj;
+			user_arr.push(cont_obj);
+			
+		}
+		return user_arr;
+
+	}
+		
+	function _parseGuidanceInfo(guidance_id) {
+		var grPigeonGuidance = new GlideRecord('x_410824_pegion_guidance_management');
+		grPigeonGuidance.get(guidance_id);
+		
+		
+		var guide_obj = {};
+		var button_arr = [];
+		var behavior_arr = [];
+		var act_msg_arr = [];
+		button_arr.push(grPigeonGuidance.getValue("u_button1"));
+		behavior_arr.push(grPigeonGuidance.getValue("u_behavior"));
+		act_msg_arr.push(grPigeonGuidance.getValue("u_action_message"));
+		
+		if(grPigeonGuidance.getValue("u_button2") != null) {
+			button_arr.push(grPigeonGuidance.getValue("u_button2"));
+			behavior_arr.push(grPigeonGuidance.getValue("u_behavior2"));
+			act_msg_arr.push(grPigeonGuidance.getValue("u_action_message2"));
+		}
+		
+		if(grPigeonGuidance.getValue("u_button3") != null) {
+			button_arr.push(grPigeonGuidance.getValue("u_button3"));
+			behavior_arr.push(grPigeonGuidance.getValue("u_behavior3"));
+			act_msg_arr.push(grPigeonGuidance.getValue("u_action_message3"));
+		}
+		
+		for (var loop = 0; loop < button_arr.length; loop++ ) {
+			guide_obj[button_arr[loop]] = {};
+			guide_obj[button_arr[loop]].behavior = behavior_arr[loop];
+			guide_obj[button_arr[loop]].messageTemplate = act_msg_arr[loop];
+		}
+		
+		return guide_obj;
+		
+	}	
+	
+		
+    },
+    type: 'SFPigeonUtil'
+});]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-09-26 05:41:15</sys_created_on>
+        <sys_id>6e0ad9672f06111048aed5f62799b64e</sys_id>
+        <sys_mod_count>50</sys_mod_count>
+        <sys_name>SFPigeonUtil</sys_name>
+        <sys_package display_value="Pegion Call App" source="x_410824_pegion">a950956f2fc2111048aed5f62799b6c4</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="Pegion Call App">a950956f2fc2111048aed5f62799b6c4</sys_scope>
+        <sys_update_name>sys_script_include_6e0ad9672f06111048aed5f62799b64e</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-11-16 07:07:45</sys_updated_on>
+    </sys_script_include>
+</record_update>

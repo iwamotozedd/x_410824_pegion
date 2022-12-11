@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element label="Pegion M2m Groups Users" max_length="40" name="x_410824_pegion_m2m_groups_users" sizeclass="3" type="collection">
+        <element attributes="encode_utf8=false" label="Group" max_length="32" name="group" reference="sys_user_group" type="reference"/>
+        <element attributes="encode_utf8=false" label="User" max_length="32" name="user" reference="sys_user" type="reference"/>
+        <element calculation="(function calculatedFieldValue(current) {&#13;&#10;&#13;&#10;&#9;// Add your code here&#13;&#10;&#9;return '';  // return the calculated value&#13;&#10;&#13;&#10;})(current);" label="Order" max_length="40" name="u_order" type="string"/>
+        <element calculation="(function calculatedFieldValue(current) {&#13;&#10;&#13;&#10;&#9;// Add your code here&#13;&#10;&#9;return '';  // return the calculated value&#13;&#10;&#13;&#10;})(current);" choice="1" label="Phone選択" max_length="40" name="u_phone" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Business" sequence="1" value="1"/>
+                <element inactive_on_update="false" label="Mobile" sequence="2" value="2"/>
+            </choice>
+        </element>
+        <index name="index">
+            <element name="user"/>
+        </index>
+        <index name="index2">
+            <element name="group"/>
+        </index>
+    </element>
+</database>

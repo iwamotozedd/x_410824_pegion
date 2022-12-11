@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sysevent_script_action">
+    <sysevent_script_action action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <condition_script/>
+        <description/>
+        <event_name>x_410824_pegion.pigeon.result</event_name>
+        <name>Get Call Results from Pigeon</name>
+        <order>100</order>
+        <script><![CDATA[gs.info('Script Action Start.');
+getRsults();
+
+function getRsults() {
+    try {
+        if (event.parm2 > 5) {
+            gs.info("retry over.");
+            return;
+        }
+        //var tenant = GlideApplicationProperty.getValue("x_446121_xmpf.x_ntt49_xmpf_integ.general.tenant");
+        //var token = GlideApplicationProperty.getValue("x_446121_xmpf.x_ntt49_xmpf_integ.general.token");
+        var tenant = 'omeyama.cloud.kompira.jp';
+        var token = '2oCJebPPLZo33Mnarb+Sc1f+D+cF4GWd1YMi6HS+';
+
+        var rest = new sn_ws.RESTMessageV2('x_410824_pegion.Pigeon', 'getCallResults');
+        rest.setStringParameterNoEscape('tenant', tenant);
+        rest.setStringParameterNoEscape('token', token);
+        rest.setStringParameterNoEscape('resultId', event.parm1);
+
+        var response = rest.execute();
+        if (response.getStatusCode() != '200') {
+            // 成功ステータスコード以外の場合はエラーとしてthrow
+            // 			throw new Error("Status Code : " + response.getStatusCode() + ", Error Message : " + response.getErrorMessage());
+            throw new Error(response.getBody());
+        }
+        var result = JSON.parse(response.getBody());
+        var endStatusRegexp = /succeeded|failed|aborted/;
+        gs.info("Status: " + result.status);
+        if (!endStatusRegexp.test(result.status)) {
+            gs.info("retry. count:" + event.parm2);
+            var gdt = new GlideDateTime();
+            gdt.addSeconds(60);
+            var retryCount = ++event.parm2;
+            gs.eventQueueScheduled('x_410824_pegion.pigeon.result', "", event.parm1, retryCount, gdt);
+            return;
+        }
+
+        var resultLog = "";
+        var addString = "";
+        for (var i = 0; i < result.calls.length; i++) {
+            addString = "架電先：" + result.calls[i].contact.displayName + "　返答：" + result.calls[i].keyInput + "　架電結果：" + result.calls[i].status + "　架電開始：" + result.calls[i].createdAt + "　架電終了：" + result.calls[i].updatedAt + "\n" + resultLog;
+            resultLog = addString;
+        }
+        var message = result.instances.guidance.messageTemplate.replace('{{ci}}', result.parameters.ci).replace('{{company}}', result.parameters.company).replace('{{detail}}', result.parameters.detail).replace('{{occurred}}', result.parameters.occurred).replace('{{ticketNo}}', result.parameters.ticketNo).replace('{{freeText}}', result.parameters.freeText);
+        resultLog += "架電内容:\n" + message;
+
+        var grIncident = new GlideRecord('incident');
+        grIncident.addQuery('number', result['parameters']['ticketNo']);
+        grIncident.query();
+        grIncident.next();
+        grIncident.work_notes = resultLog;
+        grIncident.update();
+
+        /*var chatUtil = new global.SFChatUtil();
+        chatUtil.notifyChat(grIncident.assignment_group, "インシデント" + grIncident.number + "で架電通知が行われました。詳細はインシデントログをご参照ください。");*/
+    } catch (ex) {
+        gs.error(gs.getMessage('Pigeon cooperation processing failed.') + ex);
+        gs.addErrorMessage(gs.getMessage('Pigeon cooperation processing failed.'));
+    }
+}]]></script>
+        <synchronous>false</synchronous>
+        <sys_class_name>sysevent_script_action</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-09-26 05:49:33</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>0b3d512b2f06111048aed5f62799b6f0</sys_id>
+        <sys_mod_count>4</sys_mod_count>
+        <sys_name>Get Call Results from Pigeon</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Pegion Call App" source="x_410824_pegion">a950956f2fc2111048aed5f62799b6c4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Pegion Call App">a950956f2fc2111048aed5f62799b6c4</sys_scope>
+        <sys_update_name>sysevent_script_action_0b3d512b2f06111048aed5f62799b6f0</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-10-20 06:56:55</sys_updated_on>
+    </sysevent_script_action>
+</record_update>

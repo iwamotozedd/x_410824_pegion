@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element label="Pegion M2m Users Groups" max_length="40" name="x_410824_pegion_m2m_users_groups" sizeclass="0" type="collection">
+        <element attributes="encode_utf8=false" label="Group" max_length="32" name="group" reference="sys_user_group" type="reference"/>
+        <element attributes="encode_utf8=false" label="User" max_length="32" name="user" reference="sys_user" type="reference"/>
+        <index name="index">
+            <element name="user"/>
+        </index>
+        <index name="index2">
+            <element name="group"/>
+        </index>
+    </element>
+</database>

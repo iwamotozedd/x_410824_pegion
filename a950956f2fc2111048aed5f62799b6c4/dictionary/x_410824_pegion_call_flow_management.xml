@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element label="Call Flow Management" max_length="40" name="x_410824_pegion_call_flow_management" sizeclass="8" type="collection">
+        <element calculation="(function calculatedFieldValue(current) {&#13;&#10;&#13;&#10;&#9;// Add your code here&#13;&#10;&#9;return '';  // return the calculated value&#13;&#10;&#13;&#10;})(current);" label="Company" max_length="32" name="u_company" reference="core_company" type="reference"/>
+        <element label="Display Name" max_length="40" name="u_display_name" type="string"/>
+        <element display="true" label="Flow name" max_length="40" name="u_flow_name" type="string"/>
+        <element label="Loop limit" max_length="40" name="u_loop_limit" type="string"/>
+        <element label="User" max_length="32" name="u_number" reference="sys_user" type="reference"/>
+        <element label="Phone number" max_length="40" name="u_number2" type="string"/>
+        <element label="Order" max_length="40" name="u_order" type="string"/>
+        <element active="false" calculation="(function calculatedFieldValue(current) {&#13;&#10;&#13;&#10;&#9;// Add your code here&#13;&#10;&#9;return '';  // return the calculated value&#13;&#10;&#13;&#10;})(current);" label="Phone選択" max_length="40" name="u_phone_select" type="boolean"/>
+        <element calculation="(function calculatedFieldValue(current) {&#13;&#10;&#13;&#10;&#9;// Add your code here&#13;&#10;&#9;return '';  // return the calculated value&#13;&#10;&#13;&#10;})(current);" choice="1" label="Phone選択" max_length="40" name="u_phone_select_2" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Userレコードの情報を利用" sequence="1" value="1"/>
+                <element inactive_on_update="false" label="電話番号を直接入力" sequence="2" value="2"/>
+            </choice>
+        </element>
+        <index name="index">
+            <element name="u_number"/>
+        </index>
+        <index name="index2">
+            <element name="u_company"/>
+        </index>
+    </element>
+</database>

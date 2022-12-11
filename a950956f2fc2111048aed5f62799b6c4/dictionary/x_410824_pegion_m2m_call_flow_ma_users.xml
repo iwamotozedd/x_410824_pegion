@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element label="Pegion M2m Call Flow Ma Users" max_length="40" name="x_410824_pegion_m2m_call_flow_ma_users" sizeclass="3" type="collection">
+        <element attributes="encode_utf8=false" label="Call Flow Management" max_length="32" name="call_flow_management" reference="x_410824_pegion_call_flow_management" type="reference"/>
+        <element attributes="encode_utf8=false" label="User" max_length="32" name="user" reference="sys_user" type="reference"/>
+        <element label="Order" max_length="40" name="u_order" type="string"/>
+        <element calculation="(function calculatedFieldValue(current) {&#13;&#10;&#13;&#10;&#9;// Add your code here&#13;&#10;&#9;return '';  // return the calculated value&#13;&#10;&#13;&#10;})(current);" label="User2" max_length="100" name="u_user2" type="string"/>
+        <index name="index">
+            <element name="call_flow_management"/>
+        </index>
+        <index name="index2">
+            <element name="user"/>
+        </index>
+    </element>
+</database>

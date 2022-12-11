@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element label="Guidance Management" max_length="40" name="x_410824_pegion_guidance_management" sizeclass="4" type="collection">
+        <element label="Action Message1" max_length="1000" name="u_action_message" type="string"/>
+        <element label="Action Message2" max_length="1000" name="u_action_message2" type="string"/>
+        <element label="Action Message3" max_length="1000" name="u_action_message3" type="string"/>
+        <element choice="1" label="Behavior1" max_length="40" name="u_behavior" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="終了" sequence="1" value="terminate"/>
+                <element inactive_on_update="false" label="継続" sequence="2" value="continue"/>
+                <element inactive_on_update="false" label="離脱" sequence="3" value="leave"/>
+            </choice>
+        </element>
+        <element choice="1" choice_field="u_behavior" choice_table="x_410824_pegion_guidance_management" label="Behavior2" max_length="40" name="u_behavior2" type="choice">
+            <choice/>
+        </element>
+        <element choice="1" choice_field="u_behavior" choice_table="x_410824_pegion_guidance_management" label="Behavior3" max_length="40" name="u_behavior3" type="choice">
+            <choice/>
+        </element>
+        <element choice="1" label="Button1" max_length="40" name="u_button1" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="1" sequence="1" value="1"/>
+                <element inactive_on_update="false" label="2" sequence="2" value="2"/>
+                <element inactive_on_update="false" label="3" sequence="3" value="3"/>
+                <element inactive_on_update="false" label="4" sequence="4" value="4"/>
+                <element inactive_on_update="false" label="5" sequence="5" value="5"/>
+                <element inactive_on_update="false" label="6" sequence="6" value="6"/>
+                <element inactive_on_update="false" label="7" sequence="7" value="7"/>
+                <element inactive_on_update="false" label="8" sequence="8" value="8"/>
+                <element inactive_on_update="false" label="9" sequence="9" value="9"/>
+            </choice>
+        </element>
+        <element calculation="(function calculatedFieldValue(current) {&#13;&#10;&#13;&#10;&#9;// Add your code here&#13;&#10;&#9;return '';  // return the calculated value&#13;&#10;&#13;&#10;})(current);" choice="1" choice_field="u_button1" choice_table="x_410824_pegion_guidance_management" label="Button2" max_length="40" name="u_button2" type="choice">
+            <choice/>
+        </element>
+        <element calculation="(function calculatedFieldValue(current) {&#13;&#10;&#13;&#10;&#9;// Add your code here&#13;&#10;&#9;return '';  // return the calculated value&#13;&#10;&#13;&#10;})(current);" choice="1" choice_field="u_button1" choice_table="x_410824_pegion_guidance_management" label="Button3" max_length="40" name="u_button3" type="choice">
+            <choice/>
+        </element>
+        <element calculation="(function calculatedFieldValue(current) {&#13;&#10;&#13;&#10;&#9;// Add your code here&#13;&#10;&#9;return '';  // return the calculated value&#13;&#10;&#13;&#10;})(current);" label="Company" max_length="32" name="u_company" reference="core_company" type="reference"/>
+        <element display="true" label="Guidance Name" max_length="40" name="u_guidance_name" type="string"/>
+        <element calculation="(function calculatedFieldValue(current) {&#13;&#10;&#13;&#10;&#9;// Add your code here&#13;&#10;&#9;return '';  // return the calculated value&#13;&#10;&#13;&#10;})(current);" label="Int" max_length="40" name="u_int" type="integer"/>
+        <element label="Message Template" max_length="1000" name="u_message_template" type="string"/>
+        <index name="index">
+            <element name="u_company"/>
+        </index>
+    </element>
+</database>

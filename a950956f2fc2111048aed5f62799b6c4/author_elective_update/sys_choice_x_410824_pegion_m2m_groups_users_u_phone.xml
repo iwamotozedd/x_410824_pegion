@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_choice action="INSERT_OR_UPDATE" field="u_phone" table="x_410824_pegion_m2m_groups_users" version="3">
+        <sys_choice_set action="INSERT_OR_UPDATE">
+            <element>u_phone</element>
+            <name>x_410824_pegion_m2m_groups_users</name>
+            <sys_class_name>sys_choice_set</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2022-10-27 03:35:29</sys_created_on>
+            <sys_id>83a8a4a92fb2111048aed5f62799b6ef</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>u_phone</sys_name>
+            <sys_package display_value="Pegion Call App" source="x_410824_pegion">a950956f2fc2111048aed5f62799b6c4</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="Pegion Call App">a950956f2fc2111048aed5f62799b6c4</sys_scope>
+            <sys_update_name>sys_choice_x_410824_pegion_m2m_groups_users_u_phone</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2022-10-27 03:35:29</sys_updated_on>
+        </sys_choice_set>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_phone</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Business</label>
+            <language>en</language>
+            <name>x_410824_pegion_m2m_groups_users</name>
+            <sequence>1</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2022-10-27 03:35:28</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>b0a8aca92fb2111048aed5f62799b611</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2022-10-27 03:35:28</sys_updated_on>
+            <value>1</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_phone</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Mobile</label>
+            <language>en</language>
+            <name>x_410824_pegion_m2m_groups_users</name>
+            <sequence>2</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2022-10-27 03:35:43</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>5cb864a92fb2111048aed5f62799b6e7</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2022-10-27 03:35:43</sys_updated_on>
+            <value>2</value>
+        </sys_choice>
+    </sys_choice>
+</record_update>
